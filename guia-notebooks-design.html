@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Notebooks · Para Designers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --p950: #0e0a1f;
+  --p900: #160f2e;
+  --p800: #1f1545;
+  --p700: #2d2070;
+  --p600: #3d2d96;
+  --p500: #5240bb;
+  --p400: #7b6dd4;
+  --p300: #a89de8;
+  --p200: #cdc8f4;
+  --p100: #e8e5fb;
+  --p50:  #f4f2fd;
+  --accent: #c084fc;
+  --white: #ffffff;
+  --ink: #0e0a1f;
+  --muted: #6b6391;
+  --surface: #f7f5ff;
+  --border: #e0dbf8;
+  --border-mid: #c5bdf0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(14,10,31,0.96);
+  backdrop-filter: blur(14px);
+  padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-size: 0.92rem; font-weight: 700;
+  color: var(--p200); letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: rgba(200,190,244,0.55);
+  text-decoration: none; font-size: 0.82rem; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--p200); }
+
+/* HERO */
+.hero {
+  background: var(--p950);
+  color: var(--white);
+  padding: 7rem 2rem 0;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(123,109,212,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123,109,212,0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.hero-glow {
+  position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 450px;
+  background: radial-gradient(ellipse, rgba(82,64,187,0.38) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(123,109,212,0.14);
+  color: var(--p300);
+  border: 1px solid rgba(123,109,212,0.28);
+  border-radius: 100px;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 0.4rem 1rem; margin-bottom: 1.75rem;
+  position: relative;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.25rem;
+  max-width: 680px; margin-left: auto; margin-right: auto;
+  position: relative;
+}
+.hero h1 mark { background: none; color: var(--accent); }
+.hero-sub {
+  font-size: 1rem; color: var(--p300);
+  opacity: 0.82; max-width: 500px;
+  margin: 0 auto 2.5rem;
+  font-weight: 400; line-height: 1.65; position: relative;
+}
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+.btn-primary {
+  background: var(--p500); color: var(--white);
+  font-weight: 600; font-size: 0.9rem;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  text-decoration: none; transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--p400); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent; color: var(--p300);
+  font-weight: 500; font-size: 0.9rem;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  border: 1px solid rgba(123,109,212,0.38);
+  text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--p300); color: var(--p200); }
+.hero-bar {
+  margin-top: 4rem; display: flex; justify-content: center;
+}
+.hero-bar-inner {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-bottom: none; border-radius: 14px 14px 0 0;
+  padding: 0.6rem 1rem; max-width: 680px; width: 100%;
+  display: flex; align-items: center; gap: 10px;
+}
+.dots { display: flex; gap: 5px; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; }
+.dots span:nth-child(1){background:#ff5f57}
+.dots span:nth-child(2){background:#febc2e}
+.dots span:nth-child(3){background:#28c840}
+.url-bar {
+  flex: 1; background: rgba(255,255,255,0.06);
+  border-radius: 6px; padding: 0.25rem 0.75rem;
+  font-size: 0.72rem; color: rgba(200,190,244,0.4);
+}
+
+/* STATS */
+.stats {
+  background: var(--p900);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex; justify-content: center; flex-wrap: wrap;
+}
+.stat {
+  padding: 1.75rem 3rem; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.stat:last-child { border-right: none; }
+.stat-n { font-size: 1.8rem; font-weight: 700; color: var(--accent); letter-spacing: -0.04em; }
+.stat-l { font-size: 0.76rem; color: var(--p300); opacity: 0.55; margin-top: 2px; }
+
+/* SECTIONS */
+section { padding: 5.5rem 2rem; }
+.container { max-width: 880px; margin: 0 auto; }
+.stag {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--p500);
+  font-weight: 700; margin-bottom: 0.7rem;
+}
+.stag::before { content:''; width:16px; height:2px; background:var(--p400); border-radius:1px; }
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1.15; margin-bottom: 0.9rem;
+}
+.lead {
+  font-size: 1rem; color: var(--muted);
+  max-width: 580px; margin-bottom: 2.5rem;
+  font-weight: 400; line-height: 1.75;
+}
+
+/* RAM */
+.s-ram { background: var(--surface); }
+.ram-list { display: flex; flex-direction: column; gap: 1rem; }
+.ram-row {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.25rem 1.5rem;
+  display: grid; grid-template-columns: 72px 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 0.5rem 1.25rem; align-items: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ram-row:hover { border-color: var(--border-mid); box-shadow: 0 4px 24px rgba(82,64,187,0.07); }
+.ram-row.hi { border-color: var(--p400); border-width: 1.5px; }
+.ram-n {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--p600); letter-spacing: -0.04em; line-height: 1;
+}
+.ram-n small { font-size: 0.68rem; font-weight: 600; color: var(--muted); }
+.ram-track { height: 5px; background: var(--border); border-radius: 100px; }
+.ram-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--p500), var(--accent)); }
+.rbadge {
+  font-size: 0.72rem; font-weight: 700;
+  padding: 0.3rem 0.85rem; border-radius: 100px; white-space: nowrap;
+}
+.rb-avoid { background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; }
+.rb-min   { background:var(--p50); color:var(--p600); border:1px solid var(--border); }
+.rb-ideal { background:var(--p500); color:var(--white); }
+.ram-desc { grid-column: 2/4; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.ram-up {
+  grid-column: 1/4;
+  background: var(--p50); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.6rem 0.9rem;
+  font-size: 0.8rem; color: var(--p600); font-weight: 500;
+  display: flex; align-items: center; gap: 7px;
+}
+.ram-up::before { content:'↑'; font-weight: 800; color: var(--accent); }
+.tip {
+  background: var(--p50); border-left: 3px solid var(--p400);
+  border-radius: 0 14px 14px 0; padding: 1.25rem 1.5rem; margin-top: 2rem;
+}
+.tip strong { color: var(--p700); }
+.tip p { font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* CPU */
+.s-cpu { background: var(--white); }
+.cpu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+@media (max-width:600px){ .cpu-grid { grid-template-columns:1fr; } }
+.cpu-card { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+.cpu-head {
+  padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.cpu-logo {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 800;
+}
+.l-intel { background: #0068b5; color: #fff; }
+.l-amd   { background: #ed1c24; color: #fff; }
+.cpu-bname { font-size: 0.95rem; font-weight: 700; }
+.cpu-bsub  { font-size: 0.78rem; color: var(--muted); }
+.cpu-models { padding: 0.5rem 0; }
+.cpu-mrow {
+  padding: 0.9rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.cpu-mrow:last-child { border-bottom: none; }
+.cpu-mrow:hover { background: var(--surface); }
+.cpu-mrow.hi { background: var(--p50); }
+.mname { font-size: 0.95rem; font-weight: 600; }
+.mdesc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.mtag {
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.2rem 0.65rem; border-radius: 100px; white-space: nowrap;
+}
+.t-entry { background: var(--p50); color: var(--p600); border: 1px solid var(--border); }
+.t-pro   { background: var(--p500); color: var(--white); }
+.cpu-note {
+  margin-top: 1.5rem; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.25rem 1.5rem; display: flex; gap: 12px;
+}
+.cpu-note p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+.cpu-note strong { color: var(--ink); }
+
+/* GAMER */
+.s-gamer { background: var(--p950); color: var(--white); }
+.s-gamer h2 { color: var(--white); }
+.s-gamer .lead { color: var(--p300); opacity: 0.75; }
+.s-gamer .stag { color: var(--p300); }
+.s-gamer .stag::before { background: var(--p400); }
+.gamer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+@media (max-width:640px){ .gamer-grid { grid-template-columns:1fr; } }
+.nb-card { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.nb-img-wrap { position: relative; }
+.nb-img-wrap img {
+  width: 100%; height: 210px; object-fit: cover; display: block;
+  filter: brightness(0.68);
+}
+.nb-img-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(14,10,31,0.93));
+  padding: 1.25rem 1.25rem 1rem;
+}
+.nb-type { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+.nb-title { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+.nb-sub   { font-size: 0.78rem; color: rgba(200,190,244,0.55); margin-top: 2px; }
+.nb-props {
+  background: var(--p900); border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.nb-prop { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+.nb-prop-l { color: rgba(200,190,244,0.45); }
+.nb-prop-v { font-weight: 600; color: var(--p200); }
+.nb-prop-v.bad  { color: #f87171; }
+.nb-prop-v.good { color: #86efac; }
+.verdict {
+  margin-top: 2rem; background: rgba(123,109,212,0.1);
+  border: 1px solid rgba(123,109,212,0.22); border-radius: 14px;
+  padding: 1.25rem 1.5rem; display: flex; gap: 12px;
+}
+.vdot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
+.verdict p { color: rgba(200,190,244,0.8); font-size: 0.9rem; line-height: 1.65; }
+.verdict strong { color: var(--p200); }
+
+/* CONFIGS */
+.s-cfg { background: var(--surface); }
+.cfg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 2rem; }
+@media (max-width:720px){ .cfg-grid { grid-template-columns:1fr; } }
+.cfg-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 20px; padding: 1.75rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.75rem; position: relative;
+}
+.cfg-card.rec { border-color: var(--p500); border-width: 2px; }
+.rec-lbl {
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--p500); color: var(--white);
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.25rem 1rem; border-radius: 0 0 10px 10px; white-space: nowrap;
+}
+.cfg-lvl { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--p400); }
+.cfg-card h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; }
+.cfg-who {
+  display: inline-block; background: var(--p50); color: var(--p600);
+  border: 1px solid var(--border); border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.75rem;
+}
+.cfg-specs { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.cfg-specs li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; }
+.sk { color: var(--muted); min-width: 38px; font-size: 0.78rem; padding-top: 1px; }
+.sv { color: var(--ink); font-weight: 600; line-height: 1.4; }
+.no-gpu {
+  background: var(--p50); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.7rem 0.9rem;
+  font-size: 0.8rem; color: var(--p600); font-weight: 500;
+  display: flex; gap: 7px; line-height: 1.5;
+}
+.cfg-divider { border: none; border-top: 1px solid var(--border); }
+.cfg-ideal { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+/* DETAILS */
+.s-det { background: var(--white); }
+.det-table { margin-top: 2rem; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.det-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.5rem; gap: 1rem;
+  border-bottom: 1px solid var(--border); transition: background 0.15s;
+}
+.det-row:last-child { border-bottom: none; }
+.det-row:hover { background: var(--surface); }
+.det-l { font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.det-v { font-size: 0.85rem; color: var(--p600); font-weight: 600; text-align: right; }
+
+footer {
+  background: var(--p950); color: rgba(180,170,230,0.4);
+  text-align: center; padding: 2.5rem; font-size: 0.82rem;
+}
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-dot"></div>notebook.guide</div>
+  <ul class="nav-links">
+    <li><a href="#ram">RAM</a></li>
+    <li><a href="#cpu">Processador</a></li>
+    <li><a href="#gamer">Gamer vs Slim</a></li>
+    <li><a href="#configs">Configurações</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Para designers · Photoshop · Illustrator</div>
+  <h1>O notebook certo <mark>faz diferença</mark><br>no seu trabalho.</h1>
+  <p class="hero-sub">Um guia prático para você escolher o que atende a sua necessidade — sem depender de opinião de vendedor.</p>
+  <div class="hero-btns">
+    <a href="#ram" class="btn-primary">Começar a ler</a>
+    <a href="#configs" class="btn-ghost">Ver configurações →</a>
+  </div>
+  <div class="hero-bar">
+    <div class="hero-bar-inner">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">notebook.guide · guia para designers</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Perfis de uso</div></div>
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">Fabricantes de CPU</div></div>
+  <div class="stat"><div class="stat-n">32 GB</div><div class="stat-l">RAM ideal</div></div>
+  <div class="stat"><div class="stat-n">IPS</div><div class="stat-l">Tela obrigatória</div></div>
+</div>
+
+<!-- RAM -->
+<section id="ram" class="s-ram">
+  <div class="container fade-in">
+    <div class="stag">Memória RAM</div>
+    <h2>Por que a RAM importa tanto?</h2>
+    <p class="lead">Pense na RAM como a sua mesa de trabalho. Quanto maior a mesa, mais programas você consegue deixar abertos ao mesmo tempo — sem o computador travar, engasgar ou fechar o que você estava fazendo.</p>
+
+    <div class="ram-list">
+      <div class="ram-row">
+        <div class="ram-n">8<small> GB</small></div>
+        <div><div class="ram-track"><div class="ram-fill" style="width:26%"></div></div></div>
+        <span class="rbadge rb-avoid">Evite</span>
+        <div class="ram-desc">O Photoshop sozinho pode consumir 4–6 GB em arquivos maiores. Sobra quase nada pro sistema e pro navegador. Resultado: lentidão constante e travamentos frequentes.</div>
+      </div>
+
+      <div class="ram-row">
+        <div class="ram-n">16<small> GB</small></div>
+        <div><div class="ram-track"><div class="ram-fill" style="width:54%"></div></div></div>
+        <span class="rbadge rb-min">Mínimo</span>
+        <div class="ram-desc">Mínimo para começar com conforto. Photoshop + Illustrator abertos com algumas abas do Chrome — mas sem muita folga para multitarefas pesadas.</div>
+        <div class="ram-up">Ponto de partida ok, mas considere fazer upgrade para 32 GB conforme seus projetos crescerem — muitos notebooks permitem isso.</div>
+      </div>
+
+      <div class="ram-row hi">
+        <div class="ram-n" style="color:var(--p500)">32<small> GB</small></div>
+        <div><div class="ram-track"><div class="ram-fill" style="width:100%"></div></div></div>
+        <span class="rbadge rb-ideal">Ideal</span>
+        <div class="ram-desc">Mesa de estúdio profissional. Vários programas pesados abertos, múltiplas abas, arquivos grandes — sem estresse. É o que você quer no médio prazo.</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>💡 Dica de equilíbrio:</strong>
+      <p>Um Ryzen 5 com 32 GB de RAM vai se sair muito melhor no dia a dia do que um Ryzen 7 com apenas 8 GB. O equilíbrio entre os componentes é o que define a experiência real de uso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CPU -->
+<section id="cpu" class="s-cpu">
+  <div class="container fade-in">
+    <div class="stag">Processador (CPU)</div>
+    <h2>O cérebro do computador.</h2>
+    <p class="lead">Cada filtro no Photoshop, cada exportação, cada redimensionamento de imagem passa pelo processador. Hoje o mercado tem <strong>dois grandes fabricantes</strong> — e cada um oferece dois níveis de chip para o nosso uso.</p>
+
+    <div class="cpu-grid">
+      <div class="cpu-card">
+        <div class="cpu-head">
+          <div class="cpu-logo l-intel">intel</div>
+          <div>
+            <div class="cpu-bname">Intel Core</div>
+            <div class="cpu-bsub">12ª, 13ª ou 14ª geração</div>
+          </div>
+        </div>
+        <div class="cpu-models">
+          <div class="cpu-mrow">
+            <div>
+              <div class="mname">Intel Core i5</div>
+              <div class="mdesc">Bom custo-benefício para o dia a dia. Roda Photoshop e Illustrator com conforto em projetos de tamanho médio.</div>
+            </div>
+            <span class="mtag t-entry">Iniciante</span>
+          </div>
+          <div class="cpu-mrow hi">
+            <div>
+              <div class="mname">Intel Core i7</div>
+              <div class="mdesc">Para multitarefa real — vários programas abertos, arquivos pesados e exportações mais rápidas.</div>
+            </div>
+            <span class="mtag t-pro">Profissional</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpu-card">
+        <div class="cpu-head">
+          <div class="cpu-logo l-amd">AMD</div>
+          <div>
+            <div class="cpu-bname">AMD Ryzen</div>
+            <div class="cpu-bsub">Série 5000 ou 7000</div>
+          </div>
+        </div>
+        <div class="cpu-models">
+          <div class="cpu-mrow">
+            <div>
+              <div class="mname">AMD Ryzen 5</div>
+              <div class="mdesc">Excelente custo-benefício. Consome menos bateria e roda os programas Adobe com fluidez em projetos do cotidiano.</div>
+            </div>
+            <span class="mtag t-entry">Iniciante</span>
+          </div>
+          <div class="cpu-mrow hi">
+            <div>
+              <div class="mname">AMD Ryzen 7</div>
+              <div class="mdesc">Para projetos maiores, muitas abas abertas e quem quer um notebook que dure mais anos sem parecer ultrapassado.</div>
+            </div>
+            <span class="mtag t-pro">Profissional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cpu-note">
+      <p>🤝 <strong>Intel ou AMD?</strong> Para design gráfico, ambos entregam resultado muito parecido no uso real. A diferença vai estar na quantidade de RAM e na qualidade da tela — não no fabricante do chip. Escolha pelo melhor custo-benefício da configuração completa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GAMER vs SLIM -->
+<section id="gamer" class="s-gamer">
+  <div class="container fade-in">
+    <div class="stag">Gamer vs Slim</div>
+    <h2>Notebook gamer: entrega tudo, mas tem um preço.</h2>
+    <p class="lead">Parece a escolha óbvia — mais potência, mais desempenho. Mas para quem está começando no design, o notebook gamer geralmente é um exagero que pesa no bolso e nas costas.</p>
+
+    <div class="gamer-grid">
+      <div class="nb-card">
+        <div class="nb-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=700&q=80&auto=format&fit=crop"
+            alt="Notebook slim e moderno sobre mesa de trabalho"
+            onerror="this.style.display='none'"
+          />
+          <div class="nb-img-label">
+            <div class="nb-type" style="color:var(--accent)">Ultrabook / Slim</div>
+            <div class="nb-title">Fino, leve, discreto</div>
+            <div class="nb-sub">Para carregar todo dia</div>
+          </div>
+        </div>
+        <div class="nb-props">
+          <div class="nb-prop"><span class="nb-prop-l">Peso</span><span class="nb-prop-v good">~1,4 kg</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Espessura</span><span class="nb-prop-v good">~15 mm</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Bateria</span><span class="nb-prop-v good">8–12 horas</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Carregador</span><span class="nb-prop-v good">Pequeno (USB-C)</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Tela</span><span class="nb-prop-v good">IPS, cores precisas</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Para design</span><span class="nb-prop-v good">Perfeito ✓</span></div>
+        </div>
+      </div>
+
+      <div class="nb-card">
+        <div class="nb-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1593640408182-31c228b2e582?w=700&q=80&auto=format&fit=crop"
+            alt="Notebook gamer espesso com RGB"
+            onerror="this.style.display='none'"
+          />
+          <div class="nb-img-label">
+            <div class="nb-type" style="color:#f87171;">Notebook Gamer</div>
+            <div class="nb-title">Grande, potente, pesado</div>
+            <div class="nb-sub">Vive na tomada</div>
+          </div>
+        </div>
+        <div class="nb-props">
+          <div class="nb-prop"><span class="nb-prop-l">Peso</span><span class="nb-prop-v bad">~2,5–3 kg</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Espessura</span><span class="nb-prop-v bad">~28–35 mm</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Bateria</span><span class="nb-prop-v bad">2–4 horas</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Carregador</span><span class="nb-prop-v bad">Tijolo 220W+</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Tela</span><span class="nb-prop-v bad">Às vezes TN (ruim)</span></div>
+          <div class="nb-prop"><span class="nb-prop-l">Para design</span><span class="nb-prop-v">Overkill para iniciar</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="vdot"></div>
+      <p><strong>Resumo honesto:</strong> O notebook gamer faz sentido para quem trabalha com renderização 3D, motion design pesado ou edição de vídeo 4K — e fica fixo em uma mesa. Para Photoshop e Illustrator, um ultrabook com Ryzen 7 (ou i7) + 32 GB de RAM entrega muito mais praticidade, autonomia de bateria e portabilidade no dia a dia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGS -->
+<section id="configs" class="s-cfg">
+  <div class="container fade-in">
+    <div class="stag">Configurações recomendadas</div>
+    <h2>Qual perfil faz sentido para você?</h2>
+    <p class="lead">Três configurações baseadas em uso real — não em especificações no papel.</p>
+
+    <div class="cfg-grid">
+      <div class="cfg-card">
+        <div class="cfg-lvl">Nível 01</div>
+        <h3>Entrada</h3>
+        <span class="cfg-who">Iniciante · estudante</span>
+        <ul class="cfg-specs">
+          <li><span class="sk">CPU</span><span class="sv">Ryzen 5 ou Intel i5 (geração recente)</span></li>
+          <li><span class="sk">RAM</span><span class="sv">16 GB DDR4/DDR5</span></li>
+          <li><span class="sk">GPU</span><span class="sv">Integrada — sem dedicada</span></li>
+          <li><span class="sk">SSD</span><span class="sv">512 GB NVMe</span></li>
+          <li><span class="sk">Tela</span><span class="sv">15,6" Full HD IPS</span></li>
+        </ul>
+        <div class="no-gpu">💡 GPU integrada é suficiente para quem está começando. Photoshop e Illustrator não dependem de placa dedicada.</div>
+        <hr class="cfg-divider">
+        <p class="cfg-ideal">Ilustração vetorial, edição de fotos para redes sociais, layouts simples. <strong>Upgrade de RAM para 32 GB é possível no futuro.</strong></p>
+      </div>
+
+      <div class="cfg-card rec">
+        <div class="rec-lbl">⭐ Mais recomendado</div>
+        <div class="cfg-lvl">Nível 02</div>
+        <h3>Intermediário</h3>
+        <span class="cfg-who">Freelancer · profissional</span>
+        <ul class="cfg-specs">
+          <li><span class="sk">CPU</span><span class="sv">Ryzen 7 ou Intel i7 (série 7000 / 13ª gen)</span></li>
+          <li><span class="sk">RAM</span><span class="sv">32 GB DDR5</span></li>
+          <li><span class="sk">GPU</span><span class="sv">Integrada — sem dedicada</span></li>
+          <li><span class="sk">SSD</span><span class="sv">512 GB – 1 TB NVMe</span></li>
+          <li><span class="sk">Tela</span><span class="sv">15,6"–16" WUXGA IPS</span></li>
+        </ul>
+        <div class="no-gpu">💡 Sem GPU dedicada = notebook mais fino, leve e com bateria maior. Para design gráfico, é o equilíbrio perfeito.</div>
+        <hr class="cfg-divider">
+        <p class="cfg-ideal">Múltiplos arquivos abertos, projetos em alta resolução, mockups complexos, Chrome com muitas abas.</p>
+      </div>
+
+      <div class="cfg-card">
+        <div class="cfg-lvl">Nível 03</div>
+        <h3>Avançado</h3>
+        <span class="cfg-who">Estúdio · uso intenso</span>
+        <ul class="cfg-specs">
+          <li><span class="sk">CPU</span><span class="sv">Ryzen 7 HS/HX ou Intel i7 HX</span></li>
+          <li><span class="sk">RAM</span><span class="sv">32–64 GB DDR5</span></li>
+          <li><span class="sk">GPU</span><span class="sv">RTX 4060 (8 GB) ou superior</span></li>
+          <li><span class="sk">SSD</span><span class="sv">1 TB NVMe Gen4</span></li>
+          <li><span class="sk">Tela</span><span class="sv">16" QHD IPS, 100% sRGB</span></li>
+        </ul>
+        <hr class="cfg-divider">
+        <p class="cfg-ideal">Catálogos, edição 4K, bibliotecas de assets enormes, After Effects, longas sessões sem reiniciar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section class="s-det">
+  <div class="container fade-in">
+    <div class="stag">Outros detalhes</div>
+    <h2>Os extras que você não pode ignorar.</h2>
+    <div class="det-table">
+      <div class="det-row">
+        <div class="det-l">🖥️ Tipo de tela</div>
+        <div class="det-v">Sempre IPS — evite telas TN</div>
+      </div>
+      <div class="det-row">
+        <div class="det-l">🎨 Cobertura de cores</div>
+        <div class="det-v">Mínimo 100% sRGB</div>
+      </div>
+      <div class="det-row">
+        <div class="det-l">💾 Armazenamento</div>
+        <div class="det-v">SSD NVMe — HD convencional não serve</div>
+      </div>
+      <div class="det-row">
+        <div class="det-l">🔌 Portas</div>
+        <div class="det-v">USB-C + USB-A + HDMI</div>
+      </div>
+      <div class="det-row">
+        <div class="det-l">📐 Tamanho ideal</div>
+        <div class="det-v">15,6" a 16" — tela grande, ainda portátil</div>
+      </div>
+    </div>
+    <div class="tip" style="margin-top:2rem;">
+      <strong>🎨 Atenção especial à tela:</strong>
+      <p>Para design, fidelidade de cores é inegociável. Uma tela TN distorce as cores dependendo do ângulo de visão — isso pode gerar erros na aprovação do cliente ou na impressão. Sempre prefira painéis IPS com cobertura de 100% sRGB ou superior.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Guia criado para designers que querem escolher com clareza — sem enrolação e sem depender de opinião de vendedor.</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
